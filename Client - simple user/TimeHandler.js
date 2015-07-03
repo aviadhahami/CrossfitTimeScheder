@@ -6,12 +6,13 @@ $(document).ready(function () {
 		var d = new Date();
 		var day = d.getDay() + 1;
 		var hour = d.getHours() + 1;
+
+		// Finally, get the relevant day as number
 		var actualDay = hour >= 22 ? ((day == 7 ? 0 : day) + 1) : day;
 
 
 		// ajax call & Json parsing
-		//var dbUrl ='SchedDB/' + actualDay + '.json';
-		var dbUrl ='SchedDB/' + 1 + '.json';
+		var dbUrl ='SchedDB/' + actualDay + '.json';
 		console.log(dbUrl); 
 		$.ajax({
 			url: dbUrl,
