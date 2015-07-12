@@ -21,7 +21,7 @@ $(document).ready(function(){
 		'Saturday' : 7
 	};
 
-	var changesFlag = false;
+	var _changesFlag = false;
 
 	// Todo : should get a day variable to inject in url
 	var ajaxForDB = function(index){
@@ -64,8 +64,8 @@ var injectOption = function(){
 
 // Todo : implemet this
 var validateNoSaveNeeded = function(){
-	console.log(changesFlag);
-	return !!changesFlag;
+	console.log(_changesFlag);
+	return !!_changesFlag;
 };
 
 // Empties the table
@@ -99,6 +99,10 @@ $("#addLine").click(function(){
 
 // Generates an object on submit
 $("#submit").click(function(){
+	// Free the selection
+	$("select").removeAttr('disabled');
+
+	// Do clearance
 	var finalJson=[];
 	$('#timetable > tbody  > tr').each(function(index,el) {
 		var name, time, place='';
@@ -125,19 +129,21 @@ $("#submit").click(function(){
 		}
 	});
 	console.log(finalJson);
+	// TODO : do something with the JSON
 });
 
-// Bind change event to all input boxes to know when stuff changed
-$(".inputs").on("change",function(){
-	console.log('change');
-	changesFlag = true;
-});
+	// Bind change event to all input boxes to know when stuff changed
+	$( "#timetable" ).delegate( "input", "change", function() {
+		_changesFlag=true;
+		$("select").attr("disabled","disabled");
+	});
+	
 
 
 
-// Call for action
-ajaxForDB(1);
-injectOption();
+	// Call for action
+	ajaxForDB(1);
+	injectOption();
 
 
 });
