@@ -30,11 +30,9 @@ $("#addLine").click(function(){
 $("#submit").click(function(){
 	var finalJson=[];
 	$('#timetable > tbody  > tr').each(function(index,el) {
-		//console.log(this);
 		var name, time, place='';
 		$(this).find('td').each (function(index, el) {
 			var inputValue = $(el).find('input').val();
-			// console.log(index,$(el).find('input').val());
 			if (index === 0) {
 				name =inputValue;
 			}else if (index == 1){
@@ -43,12 +41,17 @@ $("#submit").click(function(){
 				place = inputValue;
 			}
 		}); 
-		var tempObject = {
-			"name": name,
-			"time": time,
-			"place": place	
-		};
-		finalJson.push(tempObject);
+		// Make sure values are inserted
+		if (!!name && !!time & !!place){
+			var tempObject = {
+				"name": name,
+				"time": time,
+				"place": place	
+			};
+
+			// Push to main JSON
+			finalJson.push(tempObject);
+		}
 	});
 	console.log(finalJson);
 });
