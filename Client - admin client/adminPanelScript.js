@@ -1,8 +1,32 @@
 $(document).ready(function(){
 
-	var ajaxForDB = function(){
+	// GLOBALS
+	var indexToDay ={
+		'1' : 'Sunday',
+		'2' : 'Monday',
+		'3' : 'Tuesday',
+		'4' : 'Wednesday',
+		'5' : 'Thursday',
+		'6' : 'Friday',
+		'7' : 'Saturday'
+	};
+
+	var dayToIndex = {
+		'Sunday' : 1,
+		'Monday' : 2,
+		'Tuesday': 3,
+		'Wednesday' : 4,
+		'Thursday' : 5,
+		'Friday' :6,
+		'Saturday' : 7
+	};
+
+	// Todo : should get a day variable to inject in url
+	var ajaxForDB = function(index){
 	// ajax call & Json parsing
-	var dbUrl ='1.json';
+	
+	var fileIndex = !!index ? '1' : index;
+	var dbUrl = fileIndex + '.json';
 	console.log(dbUrl); 
 	$.ajax({
 		url: dbUrl,
@@ -21,12 +45,34 @@ $(document).ready(function(){
 	});
 };
 
-// Button listeners
+var injectOption = function(){
+	var optionElement = $('#daysSelect');
+
+	var appendationString ='';
+	for (day in indexToDay) {
+		appendationString = '<option>'+ indexToDay[day] +'</option>';
+		optionElement.append(appendationString);
+	}
+
+	
+};
+
+// +-+-+-+-Button listeners -+-+-+-+
+
+// Listens to a change in days selection
+$("#daysSelect").on("change",function(){
+	var daySelectionString = $(this).val();
+	console.log(dayToIndex[daySelectionString]);
+});
+
+
+// Adds a row on click
 $("#addLine").click(function(){
 	var newRow = '<tr><td><input type="text" placeholder="Insert here"/></td><td><input type="text" placeholder="Insert here"/></td><td><input type="text" placeholder="Insert here"/></td></tr>';
 	$("#timetable").append(newRow);
 });
 
+// Generates an object on submit
 $("#submit").click(function(){
 	var finalJson=[];
 	$('#timetable > tbody  > tr').each(function(index,el) {
@@ -58,7 +104,8 @@ $("#submit").click(function(){
 
 
 // Call for action
-ajaxForDB();
+ajaxForDB(1);
+injectOption();
 
 
 });

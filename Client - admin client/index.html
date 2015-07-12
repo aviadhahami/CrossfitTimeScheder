@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>Crossfit Time table - admin panel</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<!-- Call to JQ -->
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="adminPanelScript.js"></script>
@@ -10,6 +11,9 @@
 		<h1>Admin Table - Crossfit Herzliya</h1>
 	</div>
 	<div id="content">
+		<div id="datePicker">
+			<p>Choose day: </p> <select id="daysSelect"></select>
+		</div>
 		<table id="timetable">
 			<tr><td>TYPE</td><td>TIME</td><td>LOCATION</td></tr>
 		</table>
