@@ -21,12 +21,15 @@ $(document).ready(function(){
 		'Saturday' : 7
 	};
 
+	var changesFlag = false;
+
 	// Todo : should get a day variable to inject in url
 	var ajaxForDB = function(index){
 	// ajax call & Json parsing
-	
-	var fileIndex = !!index ? '1' : index;
-	var dbUrl = fileIndex + '.json';
+
+	var fileIndex = !!index ? index : '1';
+	updateDayTitle(fileIndex);
+	var dbUrl = 'SchedDB/'+fileIndex + '.json';
 	console.log(dbUrl); 
 	$.ajax({
 		url: dbUrl,
@@ -45,6 +48,7 @@ $(document).ready(function(){
 	});
 };
 
+// Inject options to the select item
 var injectOption = function(){
 	var optionElement = $('#daysSelect');
 
@@ -57,12 +61,33 @@ var injectOption = function(){
 	
 };
 
+
+// Todo : implemet this
+var validateNoSaveNeeded = function(){
+	console.log(changesFlag);
+	return !!changesFlag;
+};
+
+// Empties the table
+var emptyTable= function(){
+	$("table > tbody").html("");
+};
+
+var updateDayTitle = function(index){
+	$("#dateTitle").html(indexToDay[index]);
+};
 // +-+-+-+-Button listeners -+-+-+-+
 
 // Listens to a change in days selection
 $("#daysSelect").on("change",function(){
 	var daySelectionString = $(this).val();
-	console.log(dayToIndex[daySelectionString]);
+	var daySelectionIndex = dayToIndex[daySelectionString];
+
+	// Make sure no changes made without saving
+	if (!validateNoSaveNeeded()) {
+		emptyTable();
+		ajaxForDB(daySelectionIndex);
+	};
 });
 
 
@@ -101,6 +126,13 @@ $("#submit").click(function(){
 	});
 	console.log(finalJson);
 });
+
+// Bind change event to all input boxes to know when stuff changed
+$(".inputs").on("change",function(){
+	console.log('change');
+	changesFlag = true;
+});
+
 
 
 // Call for action

@@ -12,10 +12,14 @@
 	</div>
 	<div id="content">
 		<div id="datePicker">
-			<p>Choose day: </p> <select id="daysSelect"></select>
+			<p>Choose day:  <select id="daysSelect"></select></p>
 		</div>
 		<table id="timetable">
-			<tr><td>TYPE</td><td>TIME</td><td>LOCATION</td></tr>
+			<h4>Showing timetable for : <em id="dateTitle" style="color:red;"></em></h4>
+			
+			<thead>
+				<tr><td>TYPE</td><td>TIME</td><td>LOCATION</td></tr>
+			</thead>
 		</table>
 		<button id="addLine">Add line</button>
 		<button id="submit">Submit</button>
