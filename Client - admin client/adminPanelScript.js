@@ -90,6 +90,14 @@ $("#daysSelect").on("change",function(){
 	};
 });
 
+$("#reset").click(function(){
+	var daySelectionString = $("#daysSelect").val();
+	var daySelectionIndex = dayToIndex[daySelectionString];
+	emptyTable();
+	ajaxForDB(daySelectionIndex);
+	$("select").removeAttr('disabled');
+	_changesFlag = false;
+});
 
 // Adds a row on click
 $("#addLine").click(function(){
@@ -99,8 +107,6 @@ $("#addLine").click(function(){
 
 // Generates an object on submit
 $("#submit").click(function(){
-	// Free the selection
-	$("select").removeAttr('disabled');
 
 	// Do clearance
 	var finalJson=[];
@@ -128,8 +134,13 @@ $("#submit").click(function(){
 			finalJson.push(tempObject);
 		}
 	});
+	// Enable picker
+	$("select").removeAttr('disabled');
+	_changesFlag = false;
+
 	console.log(finalJson);
 	// TODO : do something with the JSON
+	return;
 });
 
 	// Bind change event to all input boxes to know when stuff changed
