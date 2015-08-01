@@ -106,13 +106,17 @@ $(document).ready(function () {
         _changesFlag = false;
     });
 
-// Adds a row on click
+    // Adds a row on click
     $("#addLine").click(function () {
         var newRow = '<tr><td><input type="text" placeholder="Insert here"/></td><td><input type="text" placeholder="Insert here"/></td><td><input type="text" placeholder="Insert here"/></td></tr>';
         $("#timetable").append(newRow);
     });
 
-// Generates an object on submit
+    // Loads data from the default DB
+
+    // Saves the data to the default DB
+
+    // Generates an object on submit
     $("#submit").click(function () {
 
         // Do clearance
@@ -145,8 +149,6 @@ $(document).ready(function () {
         $("select").removeAttr('disabled');
         _changesFlag = false;
 
-        //console.log(finalJson);
-
         // Removing buttons before save, display after finish
         var buttonsSelector = $('.buttons');
         buttonsSelector.css('display', 'none');
@@ -158,6 +160,7 @@ $(document).ready(function () {
 
         return;
     });
+
     // Communicates with server
     var SaveChangesToFile = function (json, day) {
 

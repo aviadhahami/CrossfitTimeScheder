@@ -9,3 +9,7 @@ body, #content{
 table{
 	margin : 0 auto;
 }
+.buttons{
+    border: black solid 1px;
+    width:80%;
+}

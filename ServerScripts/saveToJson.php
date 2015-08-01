@@ -11,7 +11,12 @@ $response = new stdClass();
 $response->day = $dayFromClient;
 
 // Stringify the address to the file
-$fileUri = $dbUri . $dayFromClient . '.json';
+if (isset($_POST['db'])){
+    $fileUri = $dbUri . 'defaults/' . $dayFromClient . '.json';
+}else{
+    $fileUri = $dbUri . $dayFromClient . '.json';
+}
+
 $response->URI = $fileUri;
 
 
