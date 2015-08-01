@@ -23,8 +23,7 @@ $(document).ready(function () {
 
     var _changesFlag = false;
 
-    // Todo : should get a day variable to inject in url
-    var ajaxForDB = function (index) {
+    var ajaxForDB = function (index, loadIndicator) {
         // ajax call & Json parsing below this
 
         // Choose day to start with, default is 1 - Sunday
@@ -32,8 +31,9 @@ $(document).ready(function () {
 
         // Update the page title with the new day
         updateDayTitle(fileIndex);
+
         // DB URI
-        var dbUrl = '../SchedDB/' + fileIndex + '.json';
+        var dbUrl = loadIndicator ? '../SchedDB/defaults/' + fileIndex + '.json' : '../SchedDB/' + fileIndex + '.json';
 
         //console.log(dbUrl);
 
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
 // Empties the table
     var emptyTable = function () {
-        $("table > tbody").html("");
+        $("table > tbody").html('');
     };
 
     var updateDayTitle = function (index) {
@@ -93,7 +93,7 @@ $(document).ready(function () {
         // Make sure no changes made without saving
         if (!validateNoSaveNeeded()) {
             emptyTable();
-            ajaxForDB(daySelectionIndex);
+            ajaxForDB(daySelectionIndex, false);
         }
     });
 
@@ -101,7 +101,7 @@ $(document).ready(function () {
         var daySelectionString = $("#daysSelect").val();
         var daySelectionIndex = dayToIndex[daySelectionString];
         emptyTable();
-        ajaxForDB(daySelectionIndex);
+        ajaxForDB(daySelectionIndex, false);
         $("select").removeAttr('disabled');
         _changesFlag = false;
     });
@@ -114,7 +114,14 @@ $(document).ready(function () {
 
     // Loads data from the default DB
 
+    $('#loadDefault').click(function () {
+        alert('loading from default!');
+    });
     // Saves the data to the default DB
+
+    $('#saveToDefault').click(function () {
+        alert('Saving to default! Changes might not be visible');
+    });
 
     // Generates an object on submit
     $("#submit").click(function () {
@@ -194,7 +201,7 @@ $(document).ready(function () {
 
 
     // Call for action
-    ajaxForDB(1);
+    ajaxForDB(1, false);
     injectOption();
 
 
