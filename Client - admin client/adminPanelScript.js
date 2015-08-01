@@ -145,24 +145,31 @@ $("#submit").click(function(){
 	$("select").removeAttr('disabled');
 	_changesFlag = false;
 
-	console.log(finalJson);
+	//console.log(finalJson);
 
     // Removing buttons before save, display after finish
     $('.buttons').css('display','none');
-    SaveChangesToFile(finalJson);
+    var day = dayToIndex[$("#daysSelect").val()];
+    console.log(day);
+    SaveChangesToFile(finalJson,day);
     $('.buttons').css('display','block');
 
 
     return;
 });
     // Communicates with server
-    var SaveChangesToFile= function(json){
+    var SaveChangesToFile= function(json,day){
 
         var srvrUrl = '../ServerScripts/saveToJson.php';
         $.ajax({
+            type:'POST',
             url: srvrUrl,
             dataType: 'json',
-            data:json,
+            data:
+            {
+                json:json,
+                day:day
+            },
             success:function(data,textStatus,request){
                 console.log('req status: ', textStatus, ' ' , request);
 
