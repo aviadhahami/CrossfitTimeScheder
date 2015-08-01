@@ -146,9 +146,33 @@ $("#submit").click(function(){
 	_changesFlag = false;
 
 	console.log(finalJson);
-	// TODO : do something with the JSON
-	return;
+
+    // Removing buttons before save, display after finish
+    $('.buttons').css('display','none');
+    SaveChangesToFile(finalJson);
+    $('.buttons').css('display','block');
+
+
+    return;
 });
+    // Communicates with server
+    var SaveChangesToFile= function(json){
+
+        var srvrUrl = '../ServerScripts/saveToJson.php';
+        $.ajax({
+            url: srvrUrl,
+            dataType: 'json',
+            data:json,
+            success:function(data,textStatus,request){
+                console.log('req status: ', textStatus, ' ' , request);
+
+            },
+            error:function(res){
+                alert('Woops, something went wrong. Please try again');
+                console.log(res);
+            }
+        });
+    };
 
 	// Bind change event to all input boxes to know when stuff changed
 	$( "#timetable" ).delegate( "input", "change", function() {
