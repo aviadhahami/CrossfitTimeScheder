@@ -42,9 +42,8 @@ $(document).ready(function () {
             dataType: 'json',
             cache: false,
             success: function (data, textStatus, request) {
-                console.log('data pull req status: ', textStatus);
-
-                console.log(data);
+                //console.log('data pull req status: ', textStatus);
+                //console.log(data);
                 // Populate the table with retrieved data
                 $.each(data, function (i, item) {
                     var newRow = '<tr><td><input type="text" value="' + data[i].name + '"/></td><td><input type="text" value="' + data[i].time + '"/></td><td><input type="text" value="' + data[i].place + '"/></td></tr>';
@@ -173,8 +172,8 @@ $(document).ready(function () {
                 day: day
             },
             success: function (data, textStatus, request) {
-               console.log('req status: ', textStatus, ' ', data);
-                //alert('Saved data to ' + indexToDay[data.day]);
+                //console.log('req status: ', textStatus, ' ', data);
+                alert('Saved data to ' + indexToDay[data.day]);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
