@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 	var fileIndex = !!index ? index : '1';
 	updateDayTitle(fileIndex);
-	var dbUrl = 'SchedDB/'+fileIndex + '.json';
+	var dbUrl = '../SchedDB/'+fileIndex + '.json';
 	console.log(dbUrl); 
 	$.ajax({
 		url: dbUrl,
