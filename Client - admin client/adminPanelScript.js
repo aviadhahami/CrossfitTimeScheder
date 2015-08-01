@@ -40,6 +40,7 @@ $(document).ready(function () {
         $.ajax({
             url: dbUrl,
             dataType: 'json',
+            cache: false,
             success: function (data, textStatus, request) {
                 console.log('data pull req status: ', textStatus);
 
@@ -164,6 +165,7 @@ $(document).ready(function () {
         var srvrUrl = '../ServerScripts/saveToJson.php';
         $.ajax({
             type: 'POST',
+            cache: false,
             url: srvrUrl,
             dataType: 'json',
             data: {
