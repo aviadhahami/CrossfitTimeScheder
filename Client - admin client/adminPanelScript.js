@@ -116,6 +116,10 @@ $(document).ready(function () {
 
     $('#loadDefault').click(function () {
         alert('loading from default!');
+        var daySelectionString = $("#daysSelect").val();
+        var daySelectionIndex = dayToIndex[daySelectionString];
+        emptyTable();
+        ajaxForDB(daySelectionIndex, true);
     });
     // Saves the data to the default DB
 
@@ -179,7 +183,7 @@ $(document).ready(function () {
             dataType: 'json',
             data: {
                 json: JSON.stringify(json),
-                day: day
+                day: day,
             },
             success: function (data, textStatus, request) {
                 //console.log('req status: ', textStatus, ' ', data);

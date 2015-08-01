@@ -11,9 +11,11 @@ $response = new stdClass();
 $response->day = $dayFromClient;
 
 // Stringify the address to the file
-if (isset($_POST['db'])){
-    $fileUri = $dbUri . 'defaults/' . $dayFromClient . '.json';
-}else{
+if (isset($_POST['db'])) {
+    if ($_POST['db'] == true) {
+        $fileUri = $dbUri . 'defaults/' . $dayFromClient . '.json';
+    }
+} else {
     $fileUri = $dbUri . $dayFromClient . '.json';
 }
 
@@ -22,11 +24,11 @@ $response->URI = $fileUri;
 
 if (json_encode($jsonFromClientAsString) != null) { /* sanity check */
     $file = fopen($fileUri, 'w');
-    if($file){
+    if ($file) {
         $response->fwrite = fwrite($file, $jsonFromClientAsString);
         fclose($file);
         $response->status = 'OK';
-    }else{
+    } else {
         $response->status = 'Error with writing';
     }
 
