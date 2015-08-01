@@ -25,16 +25,25 @@ $(document).ready(function(){
 
 	// Todo : should get a day variable to inject in url
 	var ajaxForDB = function(index){
-	// ajax call & Json parsing
+	// ajax call & Json parsing below this
 
+    // Choose day to start with, default is 1 - Sunday
 	var fileIndex = !!index ? index : '1';
+
+    // Update the page title with the new day
 	updateDayTitle(fileIndex);
+    // DB URI
 	var dbUrl = '../SchedDB/'+fileIndex + '.json';
-	console.log(dbUrl); 
+
+	console.log(dbUrl);
+
 	$.ajax({
 		url: dbUrl,
 		dataType: 'json',
 		success:function(data,textStatus,request){
+            console.log('req status: ', textStatus);
+
+            // Populate the table with retrieved data
 			$.each(data,function(i,item){
 				var newRow = '<tr><td><input type="text" value="' + data[i].name + '"/></td><td><input type="text" value="' + data[i].time + '"/></td><td><input type="text" value="' + data[i].place + '"/></td></tr>';
 				$("#timetable").append(newRow);
@@ -51,14 +60,10 @@ $(document).ready(function(){
 // Inject options to the select item
 var injectOption = function(){
 	var optionElement = $('#daysSelect');
-
-	var appendationString ='';
 	for (day in indexToDay) {
-		appendationString = '<option>'+ indexToDay[day] +'</option>';
+		var appendationString = '<option>'+ indexToDay[day] +'</option>';
 		optionElement.append(appendationString);
 	}
-
-	
 };
 
 
@@ -76,6 +81,8 @@ var emptyTable= function(){
 var updateDayTitle = function(index){
 	$("#dateTitle").html(indexToDay[index]);
 };
+
+
 // +-+-+-+-Button listeners -+-+-+-+
 
 // Listens to a change in days selection

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
 	// Make sure the poll is there (actually check for correct page)
 	if ($("#poll").length > 0) {
