@@ -6,7 +6,7 @@ $dbUri = '../SchedDB/';
 $jsonFromClient = $_POST['json'];
 $dayFromClient = $_POST['day'];
 
-var_dump($jsonFromClient);
+print json_encode('{test:"ok"}');
 
 
 ?>

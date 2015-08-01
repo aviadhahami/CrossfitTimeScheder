@@ -174,9 +174,9 @@ $("#submit").click(function(){
                 console.log('req status: ', textStatus, ' ' , request);
 
             },
-            error:function(res){
-                alert('Woops, something went wrong. Please try again');
-                console.log(res);
+            error:function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                console.log(errorThrown);
             }
         });
     };
