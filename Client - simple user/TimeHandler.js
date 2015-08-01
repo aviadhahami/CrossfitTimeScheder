@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-	// Make sure the poll is there (actualy check for correct page)
+	// Make sure the poll is there (actually check for correct page)
 	if ($("#poll").length > 0) {
 
 		var d = new Date();
@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 
 		// ajax call & Json parsing
-		var dbUrl ='SchedDB/' + actualDay + '.json';
+		var dbUrl ='../SchedDB/' + actualDay + '.json';
 		console.log(dbUrl); 
 		$.ajax({
 			url: dbUrl,
