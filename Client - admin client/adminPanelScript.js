@@ -35,19 +35,19 @@ $(document).ready(function () {
         // DB URI
         var dbUrl = '../SchedDB/' + fileIndex + '.json';
 
-        console.log(dbUrl);
+        //console.log(dbUrl);
 
         $.ajax({
             url: dbUrl,
             dataType: 'json',
             success: function (data, textStatus, request) {
-                console.log('req status: ', textStatus);
+                console.log('data pull req status: ', textStatus);
 
+                console.log(data);
                 // Populate the table with retrieved data
                 $.each(data, function (i, item) {
                     var newRow = '<tr><td><input type="text" value="' + data[i].name + '"/></td><td><input type="text" value="' + data[i].time + '"/></td><td><input type="text" value="' + data[i].place + '"/></td></tr>';
                     $("#timetable").append(newRow);
-                    // console.log(data[i].name +' '+ data[i].time + ' '+ data[i].place );
                 });
             },
             error: function (res) {
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
 // Todo : implemet this
     var validateNoSaveNeeded = function () {
-        console.log(_changesFlag);
+        //console.log(_changesFlag);
         return !!_changesFlag;
     };
 
@@ -95,7 +95,6 @@ $(document).ready(function () {
             emptyTable();
             ajaxForDB(daySelectionIndex);
         }
-        ;
     });
 
     $("#reset").click(function () {
@@ -172,12 +171,13 @@ $(document).ready(function () {
                 day: day
             },
             success: function (data, textStatus, request) {
-               //console.log('req status: ', textStatus, ' ', request);
-                alert('Saved data to ' + indexToDay[data.day])
+               console.log('req status: ', textStatus, ' ', data);
+                //alert('Saved data to ' + indexToDay[data.day]);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
                 console.log(errorThrown);
+                alert('Error! Contact Aviad');
             }
         });
     };
