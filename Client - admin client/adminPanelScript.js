@@ -172,8 +172,8 @@ $(document).ready(function () {
                 day: day
             },
             success: function (data, textStatus, request) {
-                console.log('req status: ', textStatus, ' ', request);
-
+               //console.log('req status: ', textStatus, ' ', request);
+                alert('Saved data to ' + indexToDay[data.day])
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
