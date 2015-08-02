@@ -133,7 +133,9 @@ $(document).ready(function () {
     });
 
     // Generates an object on submit
-    $("#submit").click(prepareJson(false));
+    $("#submit").click(function () {
+        prepareJson(false);
+    });
 
     var prepareJson = function (db) {
 
