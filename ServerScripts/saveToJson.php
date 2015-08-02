@@ -12,7 +12,11 @@ $response = new stdClass();
 $response->day = $dayFromClient;
 
 // Stringify the address to the file
-$fileUri = $dbUri . $defaultIndicatorFromClient . $dayFromClient . '.json';
+if ($defaultIndicatorFromClient == 'true') {
+    $fileUri = $dbUri . 'defaults/' . $dayFromClient . '.json';
+} else {
+    $fileUri = $dbUri . $dayFromClient . '.json';
+}
 
 $response->URI = $fileUri;
 

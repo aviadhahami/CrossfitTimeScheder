@@ -130,12 +130,12 @@ $(document).ready(function () {
 
     $('#saveToDefault').click(function () {
         alert('Saving to default! Changes might not be visible');
-        prepareJson('default/');
+        prepareJson(true);
     });
 
     // Generates an object on submit
     $("#submit").click(function () {
-        prepareJson('');
+        prepareJson(false);
     });
 
     var prepareJson = function (db) {
@@ -183,6 +183,8 @@ $(document).ready(function () {
     // Communicates with server
     var SaveChangesToFile = function (json, day, db) {
         console.log('db is ', db);
+        var defaultDB = !!db;
+        console.log('default db is: ', defaultDB);
         var srvrUrl = '../ServerScripts/saveToJson.php';
         $.ajax({
             type: 'POST',
@@ -192,7 +194,7 @@ $(document).ready(function () {
             data: {
                 json: JSON.stringify(json),
                 day: day,
-                db: db
+                db: defaultDB
             },
             success: function (data, textStatus, request) {
                 console.log('req status: ', textStatus, ' ', data);
