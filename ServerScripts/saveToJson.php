@@ -5,19 +5,14 @@ $dbUri = '../SchedDB/';
 // Parse the POST
 $jsonFromClientAsString = $_POST['json'];
 $dayFromClient = $_POST['day'];
+$defaultIndicatorFromClient = $_POST['db'];
 
 // Response global
 $response = new stdClass();
 $response->day = $dayFromClient;
 
 // Stringify the address to the file
-if (isset($_POST['db'])) {
-    if ($_POST['db'] == true) {
-        $fileUri = $dbUri . 'defaults/' . $dayFromClient . '.json';
-    }
-} else {
-    $fileUri = $dbUri . $dayFromClient . '.json';
-}
+$fileUri = $dbUri . $defaultIndicatorFromClient . $dayFromClient . '.json';
 
 $response->URI = $fileUri;
 

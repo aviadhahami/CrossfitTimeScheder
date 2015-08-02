@@ -33,6 +33,7 @@ $(document).ready(function () {
         updateDayTitle(fileIndex);
 
         // DB URI
+        console.log('loading indicator is: ',loadIndicator)
         var dbUrl = loadIndicator ? '../SchedDB/defaults/' + fileIndex + '.json' : '../SchedDB/' + fileIndex + '.json';
 
         //console.log(dbUrl);
@@ -129,12 +130,12 @@ $(document).ready(function () {
 
     $('#saveToDefault').click(function () {
         alert('Saving to default! Changes might not be visible');
-        prepareJson(true);
+        prepareJson('default/');
     });
 
     // Generates an object on submit
     $("#submit").click(function () {
-        prepareJson(false);
+        prepareJson('');
     });
 
     var prepareJson = function (db) {
@@ -181,7 +182,7 @@ $(document).ready(function () {
 
     // Communicates with server
     var SaveChangesToFile = function (json, day, db) {
-
+        console.log('db is ', db);
         var srvrUrl = '../ServerScripts/saveToJson.php';
         $.ajax({
             type: 'POST',
@@ -194,7 +195,7 @@ $(document).ready(function () {
                 db: db
             },
             success: function (data, textStatus, request) {
-                //console.log('req status: ', textStatus, ' ', data);
+                console.log('req status: ', textStatus, ' ', data);
                 alert('Saved data to ' + indexToDay[data.day]);
             },
             error: function (jqXHR, textStatus, errorThrown) {
