@@ -120,15 +120,22 @@ $(document).ready(function () {
         var daySelectionIndex = dayToIndex[daySelectionString];
         emptyTable();
         ajaxForDB(daySelectionIndex, true);
+
+        // Sanity
+        $("select").removeAttr('disabled');
+        _changesFlag = false;
     });
     // Saves the data to the default DB
 
     $('#saveToDefault').click(function () {
         alert('Saving to default! Changes might not be visible');
+        prepareJson(true);
     });
 
     // Generates an object on submit
-    $("#submit").click(function () {
+    $("#submit").click(prepareJson(false));
+
+    var prepareJson = function (db) {
 
         // Do clearance
         var finalJson = [];
@@ -165,15 +172,13 @@ $(document).ready(function () {
         buttonsSelector.css('display', 'none');
         var day = dayToIndex[$("#daysSelect").val()];
         console.log(day);
-        SaveChangesToFile(finalJson, day);
+        SaveChangesToFile(finalJson, day, db);
         buttonsSelector.css('display', 'block');
+    };
 
-
-        return;
-    });
 
     // Communicates with server
-    var SaveChangesToFile = function (json, day) {
+    var SaveChangesToFile = function (json, day, db) {
 
         var srvrUrl = '../ServerScripts/saveToJson.php';
         $.ajax({
@@ -184,6 +189,7 @@ $(document).ready(function () {
             data: {
                 json: JSON.stringify(json),
                 day: day,
+                db: db
             },
             success: function (data, textStatus, request) {
                 //console.log('req status: ', textStatus, ' ', data);
