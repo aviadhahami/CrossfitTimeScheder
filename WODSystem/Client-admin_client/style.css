@@ -1,0 +1,15 @@
+html,body,div{
+	margin: 0 auto;
+}
+
+body, #content{
+	text-align: center;
+}
+
+table{
+	margin : 0 auto;
+}
+.buttons{
+    border: black solid 1px;
+    width:80%;
+}
